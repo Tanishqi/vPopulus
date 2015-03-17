@@ -30,6 +30,6 @@ var getUrl = function(url) {
 
 console.log(getUrl());
 
-document.write(getURL().citizens.id);
+document.write(getURL().citizens.citizen[1].id);
 
 </script>
