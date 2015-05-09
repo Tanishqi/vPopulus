@@ -5,6 +5,7 @@
 // @include     http://vpoptools.altervista.org/
 // @version     1
 // @grant       GM_xmlhttpRequest
+// @grant       GM_log
 // ==/UserScript==
 
 GM_xmlhttpRequest({
