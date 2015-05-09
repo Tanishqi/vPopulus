@@ -18,15 +18,5 @@ GM_xmlhttpRequest({
       responseXML = new DOMParser()
         .parseFromString(response.responseText, "text/xml");
     }
-
-    GM_log([
-      response.status,
-      response.statusText,
-      response.readyState,
-      response.responseHeaders,
-      response.responseText,
-      response.finalUrl,
-      responseXML
-    ].join("\n"));
   }
 });
