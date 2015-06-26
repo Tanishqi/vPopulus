@@ -93,7 +93,7 @@ function callPage() {
         document.getElementById("data9").appendChild(newEntry9);  
 
         //Cons
-        var entry10 = citizens[i].childNodes[17].childNodes[3].childNodes[0].nodeValue;
+        var entry10 = citizens[i].childNodes[17].childNodes[5].childNodes[0].nodeValue;
         var newEntry10 = document.createElement("DIV");
         var textEntry10 = document.createTextNode(entry10);
         newEntry10.appendChild(textEntry10);
