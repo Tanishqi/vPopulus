@@ -7,20 +7,11 @@
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
 
-function findNumber() {
-  GM_xmlhttpRequest({
-    method: "GET",
-    url: "http://api.vpopulus.net/v1/feeds/country/citizens.xml?id=2",
-    onload: function(response) {
-      var responseXML = null;
-      var N = response.responseXML;
-      number = N.getElementsByTagName("pages")[0].childNodes[0].nodeValue;
-      console.log(number);
-    }
-  });
-}
+var integer = 1;
 
 function callPage() {
+  
+  //Get API: Country citizens (USA)
   GM_xmlhttpRequest({
     method: "GET",
     url: "http://api.vpopulus.net/v1/feeds/country/citizens.xml?id=2&page=" + integer + "",
@@ -29,6 +20,7 @@ function callPage() {
       var R = response.responseXML;
       console.log(R);
 
+      //Get XML: Citizens
       var citizens = R.getElementsByTagName("citizen");
       console.log(citizens);
     
@@ -36,24 +28,91 @@ function callPage() {
       while (citizens[i]) {
         if (i == null) { break; }
         console.log(citizens[i]);
+
+        //Citizen name
         var entry1 = citizens[i].childNodes[3].childNodes[0].nodeValue;
-        var newEntry = document.createElement("DIV");
-        var textEntry = document.createTextNode(entry1);
-        newEntry.appendChild(textEntry);
-        document.getElementById("data").appendChild(newEntry);
+        var newEntry1 = document.createElement("DIV");
+        var textEntry1 = document.createTextNode(entry1);
+        newEntry1.appendChild(textEntry1);
+        document.getElementById("data1").appendChild(newEntry1);
+
+        //Profile link
+        var entry2 = citizens[i].childNodes[1].childNodes[0].nodeValue;
+        var newEntry2 = document.createElement("DIV");
+        var textEntry2 = document.createTextNode("http://www.vpopulus.net/citizen/" + entry2);
+        newEntry2.appendChild(textEntry2);
+        document.getElementById("data2").appendChild(newEntry2);
+
+        //Country
+        var entry3 = citizens[i].childNodes[21].childNodes[1].childNodes[3].childNodes[0].nodeValue;
+        var newEntry3 = document.createElement("DIV");
+        var textEntry3 = document.createTextNode(entry3);
+        newEntry3.appendChild(textEntry3);
+        document.getElementById("data3").appendChild(newEntry3);
+
+        //Region
+        var entry4 = citizens[i].childNodes[21].childNodes[3].childNodes[3].childNodes[0].nodeValue;
+        var newEntry4 = document.createElement("DIV");
+        var textEntry4 = document.createTextNode(entry4);
+        newEntry4.appendChild(textEntry4);
+        document.getElementById("data4").appendChild(newEntry4);
+
+        //Wellness
+        var entry5 = citizens[i].childNodes[7].childNodes[0].nodeValue;
+        var newEntry5 = document.createElement("DIV");
+        var textEntry5 = document.createTextNode(entry5);
+        newEntry5.appendChild(textEntry5);
+        document.getElementById("data5").appendChild(newEntry5);
+
+        //Strength
+        var entry6 = citizens[i].childNodes[15].childNodes[1].childNodes[0].nodeValue;
+        var newEntry6 = document.createElement("DIV");
+        var textEntry6 = document.createTextNode(entry6);
+        newEntry6.appendChild(textEntry6);
+        document.getElementById("data6").appendChild(newEntry6);        
+
+        //Rank points
+        var entry7 = citizens[i].childNodes[15].childNodes[3].childNodes[0].nodeValue;
+        var newEntry7 = document.createElement("DIV");
+        var textEntry7 = document.createTextNode(entry7);
+        newEntry7.appendChild(textEntry7);
+        document.getElementById("data7").appendChild(newEntry7);  
+
+        //Manu
+        var entry8 = citizens[i].childNodes[17].childNodes[1].childNodes[0].nodeValue;
+        var newEntry8 = document.createElement("DIV");
+        var textEntry8 = document.createTextNode(entry8);
+        newEntry8.appendChild(textEntry8);
+        document.getElementById("data8").appendChild(newEntry8); 
+
+        //Land
+        var entry9 = citizens[i].childNodes[17].childNodes[3].childNodes[0].nodeValue;
+        var newEntry9 = document.createElement("DIV");
+        var textEntry9 = document.createTextNode(entry9);
+        newEntry9.appendChild(textEntry9);
+        document.getElementById("data9").appendChild(newEntry9);  
+
+        //Cons
+        var entry10 = citizens[i].childNodes[17].childNodes[3].childNodes[0].nodeValue;
+        var newEntry10 = document.createElement("DIV");
+        var textEntry10 = document.createTextNode(entry10);
+        newEntry10.appendChild(textEntry10);
+        document.getElementById("data10").appendChild(newEntry10);  
+
+        //Next citizen
         i++;
       }
     }
   });
 }
 
+//Next page (up to 50)
 function callPages () {
-  findNumber();
-  var integer = 1;
-  while (integer < number) {
+  while (integer < 50) {
     callPage();
     integer++;
   }
 }
 
+//Run
 callPages();
