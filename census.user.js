@@ -2,7 +2,7 @@
 // @name        Census
 // @namespace   https://github.com/Tanishqi/vPopulus/blob/master/census.user.js
 // @description Gets a list of new citizens for a particular country in vPopulus
-// @include     http://vpoptools.altervista.org/census
+// @include     http://vpoptools.altervista.org/census/
 // @version     1 
 // @grant       GM_xmlhttpRequest
 // ==/UserScript==
