@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Fights
-// @namespace   https://github.com/Tanishqi/vPopulus/blob/master/newcitizens.user.js
+// @namespace   https://github.com/Tanishqi/vPopulus/blob/master/fights.user.js
 // @description Gets a list of fights for a given battle.
 // @include     http://vpoptools.altervista.org/fights/
 // @version     1 
