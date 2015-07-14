@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Region
 // @namespace   https://github.com/Tanishqi/vPopulus/blob/master/region.user.js
-// @description Gets a list of army members
+// @description Gets a list of region residents
 // @include     http://vpoptools.altervista.org/region/
 // @version     1 
 // @grant       GM_xmlhttpRequest
@@ -21,7 +21,7 @@ function callPage() {
       console.log(R);
 
       //Get XML: Members
-      var residentss = R.getElementsByTagName("resident");
+      var residents = R.getElementsByTagName("resident");
       console.log(residents);
     
       var i = 0;
@@ -43,20 +43,6 @@ function callPage() {
         newEntry2.appendChild(textEntry2);
         document.getElementById("data2").appendChild(newEntry2);
 
-        //Level
-        var entry12 = residents[i].childNodes[11].childNodes[3].childNodes[0].nodeValue;
-        var newEntry12 = document.createElement("DIV");
-        var textEntry12 = document.createTextNode(entry12);
-        newEntry12.appendChild(textEntry12);
-        document.getElementById("data12").appendChild(newEntry12);
-
-        //Exp
-        var entry13= residents[i].childNodes[11].childNodes[1].childNodes[0].nodeValue;
-        var newEntry13 = document.createElement("DIV");
-        var textEntry13 = document.createTextNode(entry13);
-        newEntry13.appendChild(textEntry13);
-        document.getElementById("data13").appendChild(newEntry13);
-        
         //Country
         var entry4 = residents[i].childNodes[19].childNodes[1].childNodes[3].childNodes[0].nodeValue;
         var newEntry4 = document.createElement("DIV");
@@ -70,13 +56,6 @@ function callPage() {
         var textEntry5 = document.createTextNode(entry5);
         newEntry5.appendChild(textEntry5);
         document.getElementById("data5").appendChild(newEntry5);
-
-        //Strength
-        var entry6 = residents[i].childNodes[15].childNodes[1].childNodes[0].nodeValue;
-        var newEntry6 = document.createElement("DIV");
-        var textEntry6 = document.createTextNode(entry6);
-        newEntry6.appendChild(textEntry6);
-        document.getElementById("data6").appendChild(newEntry6);        
 
         //Rank points
         var entry7 = residents[i].childNodes[15].childNodes[3].childNodes[0].nodeValue;
@@ -99,12 +78,12 @@ function callPage() {
         newEntry9.appendChild(textEntry9);
         document.getElementById("data9").appendChild(newEntry9);  
 
-        //Join date
-        var entry11 = residents[i].childNodes[31].childNodes[0].nodeValue;
-        var newEntry11 = document.createElement("DIV");
-        var textEntry11 = document.createTextNode(entry11);
-        newEntry11.appendChild(textEntry11);
-        document.getElementById("data11").appendChild(newEntry11); 
+        //Cons
+        var entry10 = residents[i].childNodes[17].childNodes[5].childNodes[0].nodeValue;
+        var newEntry10 = document.createElement("DIV");
+        var textEntry10 = document.createTextNode(entry10);
+        newEntry10.appendChild(textEntry10);
+        document.getElementById("data10").appendChild(newEntry10);      
         
         //Next citizen
         i++;
