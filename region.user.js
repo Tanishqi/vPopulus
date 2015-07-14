@@ -8,13 +8,34 @@
 // ==/UserScript==
 
 var integer = 1;
+var submission = 1;
+
+//Submit function
+function submitThis() {
+  var submitButton = document.createElement("input");
+  submitButton.type="button";
+  submitButton.addEventListener("click", run, true);
+  submitButton.value="Submit";
+  document.getElementById("myForm").appendChild(submitButton); 
+
+  function run() {
+    var form = document.forms.namedItem("myForm");
+    var input = form.elements.namedItem("regionID");
+    submission = input.value;
+    console.log(submission);
+    callPages();
+    regionInfo();
+  }  
+}
 
 function callPage() {
+
+  location.reload();
   
   //Get API: Region residents (72)
   GM_xmlhttpRequest({
     method: "GET",
-    url: "http://api.vpopulus.net/v1/feeds/region/residents.xml?id=72&page=" + integer + "",
+    url: "http://api.vpopulus.net/v1/feeds/region/residents.xml?id=" + submission + "" + "&page=" + integer + "",
     onload: function(response) {
       var responseXML = null;
       var R = response.responseXML;
@@ -92,6 +113,33 @@ function callPage() {
   });
 }
 
+function regionInfo() {
+  //GET Region info
+  GM_xmlhttpRequest({
+    method: "GET",
+    url: "http://api.vpopulus.net/v1/feeds/region.xml?id=" + submission + "",
+    onload: function(response) {
+      var responseXML = null;
+      var R2 = response.responseXML;
+      console.log(R2);
+
+      //Get XML: Region
+      var region = R2.getElementsByTagName("region");
+      console.log(region);
+    
+      var ii = 0;
+      if (region[ii]) {
+        console.log(region[ii]);
+
+        //Region
+        var entry0 = region[ii].childNodes[3].childNodes[0].nodeValue;
+        var textEntry0 = document.createTextNode(entry0);
+        document.getElementById("data0").appendChild(textEntry0);
+      }
+    }
+  });
+}
+
 //Next page (up to 50)
 function callPages () {
   while (integer < 50) {
@@ -101,4 +149,4 @@ function callPages () {
 }
 
 //Run
-callPages();
+submitThis();
