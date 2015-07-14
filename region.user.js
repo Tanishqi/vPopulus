@@ -93,14 +93,14 @@ function callPage() {
         document.getElementById("data8").appendChild(newEntry8); 
 
         //Land
-        var entry9 = members[i].childNodes[17].childNodes[3].childNodes[0].nodeValue;
+        var entry9 = residents[i].childNodes[17].childNodes[3].childNodes[0].nodeValue;
         var newEntry9 = document.createElement("DIV");
         var textEntry9 = document.createTextNode(entry9);
         newEntry9.appendChild(textEntry9);
         document.getElementById("data9").appendChild(newEntry9);  
 
         //Join date
-        var entry11 = members[i].childNodes[31].childNodes[0].nodeValue;
+        var entry11 = residents[i].childNodes[31].childNodes[0].nodeValue;
         var newEntry11 = document.createElement("DIV");
         var textEntry11 = document.createTextNode(entry11);
         newEntry11.appendChild(textEntry11);
