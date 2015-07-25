@@ -30,7 +30,7 @@ function submitThis() {
 
 function callPage() {
   
-  //Get API: Region residents (72)
+  //Get API: Region residents
   GM_xmlhttpRequest({
     method: "GET",
     url: "http://api.vpopulus.net/v1/feeds/region/residents.xml?id=" + submission + "" + "&page=" + integer + "",
@@ -39,7 +39,7 @@ function callPage() {
       var R = response.responseXML;
       console.log(R);
 
-      //Get XML: Members
+      //Get XML: Residents
       var residents = R.getElementsByTagName("resident");
       console.log(residents);
     
