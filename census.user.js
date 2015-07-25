@@ -8,15 +8,34 @@
 // ==/UserScript==
 
 var integer = 1;
+var submission = 1;
+
+//Submit function
+function submitThis() {
+  var submitButton = document.createElement("input");
+  submitButton.type="button";
+  submitButton.addEventListener("click", run1, true);
+  submitButton.value="Submit";
+  document.getElementById("myForm").appendChild(submitButton); 
+
+  function run1() {
+    var form = document.forms.namedItem("myForm");
+    var input = form.elements.namedItem("countryID");
+    submission = input.value;
+    console.log(submission);
+    callPages();
+    countryInfo();
+  }  
+}
 
 function callPage() {
   
-  //Get API: Country citizens (USA)
+  //Get API: Country citizens
   GM_xmlhttpRequest({
     method: "GET",
-    url: "http://api.vpopulus.net/v1/feeds/country/citizens.xml?id=2&page=" + integer + "",
+    url: "http://api.vpopulus.net/v1/feeds/country/citizens.xml?id=" + submission + "&page=" + integer + "",
     onload: function(response) {
-      var responseXML = null;
+      var responseXML = 1;
       var R = response.responseXML;
       console.log(R);
 
@@ -113,6 +132,33 @@ function callPage() {
   });
 }
 
+function countryInfo() {
+  //GET Country info
+  GM_xmlhttpRequest({
+    method: "GET",
+    url: "http://api.vpopulus.net/v1/feeds/country.xml?id=" + submission + "",
+    onload: function(response) {
+      var responseXML = null;
+      var R2 = response.responseXML;
+      console.log(R2);
+
+      //Get XML: Region
+      var country = R2.getElementsByTagName("country");
+      console.log(country);
+    
+      var ii = 0;
+      if (country[ii]) {
+        console.log(country[ii]);
+
+        //Region
+        var entry0 = country[ii].childNodes[3].childNodes[0].nodeValue;
+        var textEntry0 = document.createTextNode(entry0);
+        document.getElementById("data0").appendChild(textEntry0);
+      }
+    }
+  });
+}
+
 //Next page (up to 50)
 function callPages () {
   while (integer < 50) {
@@ -121,5 +167,19 @@ function callPages () {
   }
 }
 
+//Reset function
+function resetThis() {
+  var resetButton = document.createElement("input");
+  resetButton.type="button";
+  resetButton.addEventListener("click", run2, true);
+  resetButton.value="Reset";
+  document.getElementById("myForm").appendChild(resetButton); 
+  
+  function run2() {  
+    location.reload();
+  }
+}
+
 //Run
-callPages();
+submitThis();
+resetThis();
