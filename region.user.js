@@ -14,11 +14,11 @@ var submission = 1;
 function submitThis() {
   var submitButton = document.createElement("input");
   submitButton.type="button";
-  submitButton.addEventListener("click", run, true);
+  submitButton.addEventListener("click", run1, true);
   submitButton.value="Submit";
   document.getElementById("myForm").appendChild(submitButton); 
 
-  function run() {
+  function run1() {
     var form = document.forms.namedItem("myForm");
     var input = form.elements.namedItem("regionID");
     submission = input.value;
@@ -29,15 +29,13 @@ function submitThis() {
 }
 
 function callPage() {
-
-  location.reload();
   
   //Get API: Region residents (72)
   GM_xmlhttpRequest({
     method: "GET",
     url: "http://api.vpopulus.net/v1/feeds/region/residents.xml?id=" + submission + "" + "&page=" + integer + "",
     onload: function(response) {
-      var responseXML = null;
+      var responseXML = 1;
       var R = response.responseXML;
       console.log(R);
 
@@ -148,5 +146,19 @@ function callPages () {
   }
 }
 
+//Reset function
+function resetThis() {
+  var resetButton = document.createElement("input");
+  resetButton.type="button";
+  resetButton.addEventListener("click", run2, true);
+  resetButton.value="Reset";
+  document.getElementById("myForm").appendChild(resetButton); 
+  
+  function run2() {  
+    location.reload();
+  }
+}
+
 //Run
 submitThis();
+resetThis();
