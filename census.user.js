@@ -142,7 +142,7 @@ function countryInfo() {
       var R2 = response.responseXML;
       console.log(R2);
 
-      //Get XML: Region
+      //Get XML: Country
       var country = R2.getElementsByTagName("country");
       console.log(country);
     
