@@ -8,13 +8,32 @@
 // ==/UserScript==
 
 var integer = 1;
+var submission = 1;
+
+//Submit function
+function submitThis() {
+  var submitButton = document.createElement("input");
+  submitButton.type="button";
+  submitButton.addEventListener("click", run1, true);
+  submitButton.value="Submit";
+  document.getElementById("myForm").appendChild(submitButton); 
+
+  function run1() {
+    var form = document.forms.namedItem("myForm");
+    var input = form.elements.namedItem("armyID");
+    submission = input.value;
+    console.log(submission);
+    callPages();
+    armyInfo();
+  }  
+}
 
 function callPage() {
   
-  //Get API: Army members (13)
+  //Get API: Army members
   GM_xmlhttpRequest({
     method: "GET",
-    url: "http://api.vpopulus.net/v1/feeds/army/members.xml?id=13&page=" + integer + "",
+    url: "http://api.vpopulus.net/v1/feeds/army/members.xml?id=" + submission + "&page=" + integer + "",
     onload: function(response) {
       var responseXML = null;
       var R = response.responseXML;
@@ -43,6 +62,20 @@ function callPage() {
         newEntry2.appendChild(textEntry2);
         document.getElementById("data2").appendChild(newEntry2);
 
+        //Level
+        var entry12 = members[i].childNodes[11].childNodes[3].childNodes[0].nodeValue;
+        var newEntry12 = document.createElement("DIV");
+        var textEntry12 = document.createTextNode(entry12);
+        newEntry12.appendChild(textEntry12);
+        document.getElementById("data12").appendChild(newEntry12);
+
+        //Exp
+        var entry13= members[i].childNodes[11].childNodes[1].childNodes[0].nodeValue;
+        var newEntry13 = document.createElement("DIV");
+        var textEntry13 = document.createTextNode(entry13);
+        newEntry13.appendChild(textEntry13);
+        document.getElementById("data13").appendChild(newEntry13);
+        
         //Region
         var entry4 = members[i].childNodes[21].childNodes[3].childNodes[3].childNodes[0].nodeValue;
         var newEntry4 = document.createElement("DIV");
@@ -99,6 +132,33 @@ function callPage() {
   });
 }
 
+function armyInfo() {
+  //GET Army info
+  GM_xmlhttpRequest({
+    method: "GET",
+    url: "http://api.vpopulus.net/v1/feeds/army.xml?id=" + submission + "",
+    onload: function(response) {
+      var responseXML = null;
+      var R2 = response.responseXML;
+      console.log(R2);
+
+      //Get XML: Region
+      var army = R2.getElementsByTagName("army");
+      console.log(army);
+    
+      var ii = 0;
+      if (army[ii]) {
+        console.log(army[ii]);
+
+        //Army
+        var entry0 = army[ii].childNodes[3].childNodes[0].nodeValue;
+        var textEntry0 = document.createTextNode(entry0);
+        document.getElementById("data0").appendChild(textEntry0);
+      }
+    }
+  });
+}
+
 //Next page (up to 50)
 function callPages () {
   while (integer < 50) {
@@ -107,5 +167,19 @@ function callPages () {
   }
 }
 
+//Reset function
+function resetThis() {
+  var resetButton = document.createElement("input");
+  resetButton.type="button";
+  resetButton.addEventListener("click", run2, true);
+  resetButton.value="Reset";
+  document.getElementById("myForm").appendChild(resetButton); 
+  
+  function run2() {  
+    location.reload();
+  }
+}
+
 //Run
-callPages();
+submitThis();
+resetThis();
